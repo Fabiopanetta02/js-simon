@@ -1,4 +1,23 @@
-/* :root{
-    --pink: #E53170;
-} */
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+#display{
+    font-size: 10rem;
+    font-weight: bold;
+    margin-top: 10rem;
+}
+
+.random-number{
+    font-size: 5rem;
+    font-weight: bold;
+}
+
+.hidden{
+    visibility: hidden;
+}
 
