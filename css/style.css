@@ -21,3 +21,13 @@ body{
     visibility: hidden;
 }
 
+ul{
+    list-style-type: none;
+    display: flex;
+}
+
+li{
+    margin: 0 20px;
+    font-size: 3rem;
+    font-weight: bolder;
+}

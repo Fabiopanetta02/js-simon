@@ -1,6 +1,20 @@
+//*PREPARAZIONE*//
+const min = 1;
+const max = 100;
+const totalNumbers = 5
+let seconds = 30;
+
+
 //*FUNZIONI*//
-function createNumber(){
-    return Math.floor(Math.random() * 100) + 1;
+function createNumber(min, max, total){
+    const numbers = [];
+
+    while(numbers.length < total){
+        const randomNumber = Math.floor(Math.random() * (max + 1 - min)) + min;
+        if(!numbers.includes(randomNumber)) numbers.push(randomNumber);
+    }
+
+    return numbers;
 }
 
 function createPrompt(){
@@ -9,22 +23,23 @@ function createPrompt(){
 
 //Recupero gli elementi dal DOM
 const display = document.getElementById('display');
-const number = document.querySelector('.random-number')
+const numberElements = document.getElementById('random-number-list');
 
 //Scrivo in pagina i secondi
-let seconds = 30;
 display.innerText = seconds;
 
+//Creo i numeri casuali
+const numbers = createNumber(min, max, totalNumbers);
+console.log(numbers);
+
 //Scrivo in pagina i numeri casuali
-const randomNumber = [];
+let items = '';
 
-for(let i = 0; i < 5; i++){
-    const random = createNumber();
-    randomNumber.push(random);
- }
+for(let i = 0; i < totalNumbers; i++){
+   items += `<li>${numbers[i]}</li>` 
+}
 
- console.log(randomNumber);
- number.innerText = randomNumber;
+numberElements.innerHTML = items;
 
 
 //Creo la logica per far diminuire il numero
@@ -36,27 +51,24 @@ if(seconds === 0){
     clearInterval(countdown);
 
     //Scompaiono i numeri 
-    number.classList.add('hidden')
+    numberElements.classList.add('hidden')
 
     //Compaiono i 5 prompt
-    let promptNumber;
     setTimeout(function(){
-        for(let i = 0; i < 5; i++){
-           promptNumber = createPrompt();
-           console.log(promptNumber);
-         }
-    }, 200)
+        const userNumbers = [];
 
-    //Compare l'alert con il punteggio
-    let score = 0; 
-    setTimeout(function(){
+        while(userNumbers.length < totalNumbers){
+            const userNumber = createPrompt();
+            if(!userNumbers.includes(userNumber)) userNumbers.push(userNumber);
+        } 
+
+        //Compare l'alert con il punteggio
+        let correctAnswer = [];
         for(let i = 0; i < 5; i++){
-            if(randomNumber.includes(promptNumber)){
-                ++score;
-            }
+            if(numbers.includes(userNumbers[i])) correctAnswer.push(userNumbers[i])
           }
 
-        alert(`Complimenti hai totalizzato: ${score} punti`);
+        alert(`Complimenti hai totalizzato: ${correctAnswer.length} punti e hai indovinato( ${correctAnswer} )`);
     }, 200)
 }
 }, 1000)
